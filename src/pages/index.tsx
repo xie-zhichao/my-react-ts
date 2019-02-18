@@ -1,9 +1,11 @@
 import React from "react";
 import { Route, Link } from "react-router-dom";
+import Input from "../components/Input";
 
 export const Home = () => (
   <div>
     <h2>Home</h2>
+    <Input name="username"></Input>
   </div>
 );
 
