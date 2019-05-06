@@ -5,6 +5,19 @@ import Input from "../components/Input";
 export const Home = () => (
   <div>
     <h2>Home</h2>
+    <ul>
+      <li>
+        <Link to="/">Home</Link>
+      </li>
+      <li>
+        <Link to="/about">About</Link>
+      </li>
+      <li>
+        <Link to="/topics">Topics</Link>
+      </li>
+    </ul>
+
+    <div style={{border: "1px dotted grey"}}/>
     <Input name="username"></Input>
   </div>
 );
