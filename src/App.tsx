@@ -1,28 +1,21 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import AuthorizedRoute from './AuthorizedRoute';
-import store from './store';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import AuthorizedRoute from './AuthorizedRoute'
+import store from './store'
+import BasicLayout from './layouts/basicLayout'
+import Login from './pages/login'
 
-// Layouts
-import basicLayout from './layouts/basicLayout'
-
-export interface AppProps {
-  [propName: string]: any
-}
-
-const App = (props: AppProps) => (
+const App: React.FC = (props: BaseProps) => (
   <Provider store={store}>
     <BrowserRouter>
-      <>
         <Switch>
-          <Route path="/auth" component={basicLayout} />
-          <AuthorizedRoute path="/app" component={basicLayout} />
-          <Redirect to="/auth" />
+          <Route path="/auth/login" component={Login} />
+          <AuthorizedRoute path="/home" component={BasicLayout} />
+          <Redirect to="/auth/login" />
         </Switch>
-      </>
     </BrowserRouter>
   </Provider>
 )
 
-export default App;
+export default App

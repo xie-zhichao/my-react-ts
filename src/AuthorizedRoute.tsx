@@ -1,35 +1,29 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteProps, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-interface BaseProps {
-  [propName: string]: any
-}
-
-interface AuthorizedRouteProps {
-  component: typeof React.Component,
+interface AuthorizedRouteProps extends RouteProps {
   pending: boolean,
   logged: boolean,
-  [propName: string]: any
+  component: React.FC<RouteComponentProps>
 };
 
-class AuthorizedRoute extends React.Component<AuthorizedRouteProps> {
+const AuthorizedRoute: React.FC<PickRequired<AuthorizedRouteProps, 'component'>> = props => {
 
-  componentDidMount() {
+  const { component: Component, pending, logged, ...rest } = props
+
+  const renderComponent = (props: RouteComponentProps) => {
+    if (pending) return <div>Loading...</div>
+    return logged
+      ? <Component {...props} />
+      : <Redirect to="/auth/login" />
   }
 
-  render() {
-    const { component: Component, pending, logged, ...rest } = this.props
-    
-    return (
-      <Route {...rest} render={props => {
-        if (pending) return <div>Loading...</div>
-        return logged
-          ? <Component {...props} />
-          : <Redirect to="/auth/login" />
-      }} />
-    )
-  }
+  return (
+    <Route
+     {...rest} 
+     render={renderComponent} />
+  )
 }
 
 const stateToProps = ({ loggedUserState }: BaseProps) => ({

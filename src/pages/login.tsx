@@ -1,11 +1,18 @@
-import React from 'react';
+import React from 'react'
+import { RouteComponentProps } from 'react-router-dom' 
+import { Button } from 'antd'
+import { login } from '../services/userService'
 
-class LoginPage extends React.Component {
-  render(): React.ReactNode {
-    return <div className="login">
-      <label>用户名</label>
-    </div>;
+const Login: React.FC<RouteComponentProps> = ({ history }) => {
+
+  async function doLogin() {
+    const res = await login()
+    history.replace('/home')
   }
+
+  return <div className="login">
+    <Button onClick={doLogin}>登录</Button>
+  </div>
 }
 
-export default LoginPage;
+export default Login

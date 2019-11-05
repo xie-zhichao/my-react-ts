@@ -1,34 +1,36 @@
-import React from "react";
-import { Route, Link } from "react-router-dom";
-import Input from "../components/Input";
+import React from "react"
+import { Route, Link, RouteComponentProps } from "react-router-dom"
 
 export const Home = () => (
   <div>
     <h2>Home</h2>
     <ul>
       <li>
-        <Link to="/">Home</Link>
+        <Link to="/home">Home</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/home/about">About</Link>
       </li>
       <li>
-        <Link to="/topics">Topics</Link>
+        <Link to="/home/topics">Topics</Link>
       </li>
     </ul>
 
-    <div style={{border: "1px dotted grey"}}/>
-    <Input name="username"></Input>
+    <div style={{ border: "1px dotted grey" }} />
+    Welcome!
   </div>
-);
+)
 
-export const About = () => (
+const Topic: React.FC<RouteComponentProps> = ({ match }) => {
+  const { topicId } = match.params as BaseParams
+  return (
   <div>
-    <h2>About</h2>
+    <h3>{topicId}</h3>
   </div>
-);
+)
+  }
 
-export const Topics = ({ match }: any) => (
+export const Topics: React.FC<RouteComponentProps> = ({ match }) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -50,12 +52,12 @@ export const Topics = ({ match }: any) => (
       render={() => <h3>Please select a topic.</h3>}
     />
   </div>
-);
+)
 
-export const Topic = ({ match }: any) => (
+export const About = () => (
   <div>
-    <h3>{match.params.topicId}</h3>
+    <h2>About</h2>
   </div>
-);
+)
 
-export default { Home, About, Topics };
+export default Home

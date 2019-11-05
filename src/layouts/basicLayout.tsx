@@ -1,16 +1,22 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react'
+import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
 
-type LayoutProps = {
-  match: string
-}
+import Home, { About, Topics } from '../pages/index'
 
-const basicLayout = (props: LayoutProps) => {
+import './basicLayout.scss'
+
+const BasicLayout: React.FC<RouteComponentProps> = ({ match }) => {
+
   return <div className="basic-layout">
+    <div className="page-content">
     <Switch>
-      <Route path={props.match}></Route>
+      <Route path={`${match.path}`} exact component={Home} />
+      <Route path={`${match.path}/topics`} component={Topics} />
+      <Route path={`${match.path}/about`} component={About} />
+      <Redirect to={`${match.url}`} />
     </Switch>
+    </div>
   </div>
 }
 
-export default basicLayout;
+export default BasicLayout
