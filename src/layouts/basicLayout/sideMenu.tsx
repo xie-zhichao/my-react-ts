@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Menu } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import routes, { IRouteItem } from '../../config/routes'
+import menuTree, { IMenuTree } from '@/config/routes'
 
 const Menus: React.FC<RouteComponentProps> = props => {
   const { location, history } = props
@@ -10,11 +10,11 @@ const Menus: React.FC<RouteComponentProps> = props => {
     history.push(key)
   }
 
-  function hasChild(route: IRouteItem) {
+  function hasChild(route: IMenuTree) {
     return Array.isArray(route.children) && route.children.length > 0
   }
 
-  function genSubMenu(route: IRouteItem) {
+  function genSubMenu(route: IMenuTree) {
     return (
       <Menu.SubMenu
         title={
@@ -25,12 +25,12 @@ const Menus: React.FC<RouteComponentProps> = props => {
         }
         key={route.path}
       >
-        {genMenus(route.children)}
+        {genMenus(route.children!)}
       </Menu.SubMenu>
     )
   }
 
-  function genMenItem(route: IRouteItem) {
+  function genMenuItem(route: IMenuTree) {
     return (
       <Menu.Item key={route.path}>
         {route.icon && <Icon type={route.icon} />}
@@ -39,12 +39,12 @@ const Menus: React.FC<RouteComponentProps> = props => {
     )
   }
 
-  function genMenus(routes: any) {
+  function genMenus(routes: IMenuTree[]) {
     return routes.reduce((prev: any, next: any) => {
       return prev.concat(
         hasChild(next)
           ? genSubMenu(next)
-          : genMenItem(next)
+          : genMenuItem(next)
       )
     }, [])
   }
@@ -56,7 +56,7 @@ const Menus: React.FC<RouteComponentProps> = props => {
       selectedKeys={[location.pathname]}
       onClick={handleNavClick}
     >
-      {genMenus(routes)}
+      {genMenus(menuTree)}
     </Menu>
   )
 }

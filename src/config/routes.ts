@@ -1,18 +1,19 @@
 /**
  * 菜单配置
  */
-export interface IRouteItem {
+export interface IMenuTree {
   name: string;
   path: string;
-  icon: string;
+  icon?: string;
   component?: string;
   permission?: string | string[];
   showMenu?: boolean;
   exact?: boolean;
-  children?: IRouteItem[]
+  children?: IMenuTree[],
+  redirect?: string
 }
 
-const routes: IRouteItem[] = [
+const menuTree: IMenuTree[] = [
   {
     name: '首页',
     path: '/home',
@@ -42,4 +43,4 @@ const routes: IRouteItem[] = [
   }
 ]
 
-export default routes
+export default menuTree
