@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 /**
  * Input组件参数接口
@@ -17,8 +17,9 @@ export interface InputProps {
  * @param context 
  */
 export default function input(props: InputProps, context: any) {
-  const { label, name, value, theme, autoFocus, ...rootProps } = props;
-  const { defaultLabel, defaultTheme } = context;
+  const { label, name, value, theme, autoFocus, ...rootProps } = props
+  const { defaultLabel, defaultTheme } = context
+
   return (
     <React.Fragment>
       <label
@@ -42,4 +43,4 @@ export default function input(props: InputProps, context: any) {
 input.contextTypes = {
   defaultLabel: "",
   defaultTheme: Object,
-};
+}

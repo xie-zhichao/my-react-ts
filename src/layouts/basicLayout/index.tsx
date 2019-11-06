@@ -1,33 +1,20 @@
 import React from 'react'
-import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
-import { Layout } from 'antd';
-import SideMenu from './sideMenu'
-import Home from '../../pages/home'
-import Topics from '../../pages/topics'
-import About from '../../pages/about'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { UserProvider } from '@/models/user'
+import AuthorizedRoute from '../../components/AuthorizedRoute'
+import Layout from './layout'
+import Login from '../../pages/login'
 
-import './index.scss'
+const App: React.FC = props => ( 
+  <UserProvider>
+    <BrowserRouter>
+        <Switch>
+          <Route path="/auth/login" component={Login} />
+          <AuthorizedRoute path="/home" component={Layout} redirect="/auth/login" />
+          <Redirect to="/auth/login" />
+        </Switch>
+    </BrowserRouter>
+  </UserProvider>
+)
 
-const { Header, Footer, Sider, Content } = Layout;
-
-const BasicLayout: React.FC<RouteComponentProps> = ({ match }) => {
-  return <div className="basic-layout">
-    <Layout>
-      <Sider><SideMenu /></Sider>
-      <Layout>
-        <Header>TS-Admin</Header>
-        <Content>
-          <Switch>
-            <Route path={`${match.path}`} exact component={Home} />
-            <Route path={`${match.path}/topics`} component={Topics} />
-            <Route path={`${match.path}/about`} component={About} />
-            <Redirect to={`${match.url}`} />
-          </Switch>
-        </Content>
-        <Footer>copyright.</Footer>
-      </Layout>
-    </Layout>
-  </div>
-}
-
-export default BasicLayout
+export default App
