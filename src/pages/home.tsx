@@ -9,15 +9,14 @@ const Home = () => (
         <Link to="/home">Home</Link>
       </li>
       <li>
-        <Link to="/home/about">About</Link>
+        <Link to="about">About</Link>
       </li>
       <li>
-        <Link to="/home/topics">Topics</Link>
+        <Link to="topics">Topics</Link>
       </li>
     </ul>
-
-    <div style={{ border: "1px dotted grey" }} />
     Welcome!
+    <div style={{ border: "1px dotted grey" }} />
   </div>
 )
 

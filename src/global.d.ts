@@ -16,3 +16,5 @@ declare interface IReducerAction<T> {
 }
 
 declare type PickRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
+
+declare type JsxElementOrNull = JSX.Element | null

@@ -17,7 +17,7 @@ const BasicLayout: React.FC<RouteComponentProps> = props => {
         <Content>
           <PageContent {...props}/>
         </Content>
-        <Footer>copyright.</Footer>
+        <Footer>copyright 2019. TS-Admin</Footer>
       </Layout>
     </Layout>
   </div>

@@ -1,45 +1,68 @@
+import Home from '@/pages/home'
 /**
  * 菜单配置
  */
+
+/**
+ * 菜单树元素接口
+ * 
+ * component动态导入时需配置lazy
+ */
 export interface IMenuTree {
-  name: string;
+  name?: string;
   path: string;
   icon?: string;
-  component?: string;
+  component?: any;
+  lazy?: boolean;
   permission?: string | string[];
-  showMenu?: boolean;
+  hideMenu?: boolean;
   exact?: boolean;
   children?: IMenuTree[],
   redirect?: string
 }
 
+export const hasChild = (menu: IMenuTree) => {
+  return Array.isArray(menu.children) && menu.children.length > 0
+}
+
 const menuTree: IMenuTree[] = [
+  {
+    path: '/',
+    redirect: '/home',
+    exact: true
+  },
   {
     name: '首页',
     path: '/home',
-    icon: 'user',
-    component: '../pages/home',
-    permission: ['admin']
-  },
-  {
-    name: '话题',
-    path: '/topics',
-    icon: 'man',
-    component: '../pages/topics',
+    exact: true,
+    icon: 'home',
+    component: Home,
+    permission: ['admin'],
     children: [
       {
-        name: '渲染',
+        name: '话题',
         path: '/topics',
-        icon: 'woman',
-        component: '../pages/topics/rendering'
+        icon: 'message',
+        component: () => import('@/pages/topics'),
+        lazy: true
+      },
+      {
+        name: '关于',
+        path: '/about',
+        exact: true,
+        icon: 'team',
+        component: () => import('@/pages/about'),
+        lazy: true
       }
     ]
   },
   {
-    name: '关于',
-    path: '/about',
-    icon: 'medicine-box',
-    component: '../pages/about'
+    name: '404',
+    path: '/404',
+    exact: true,
+    component: () => import('@/pages/404'),
+    lazy: true,
+    hideMenu: true
   }
 ]
 

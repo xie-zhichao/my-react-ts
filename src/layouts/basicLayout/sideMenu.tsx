@@ -1,17 +1,13 @@
 import React from 'react'
 import { Icon, Menu } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import menuTree, { IMenuTree } from '@/config/routes'
+import menuTree, { IMenuTree, hasChild } from '@/config/routes'
 
 const Menus: React.FC<RouteComponentProps> = props => {
   const { location, history } = props
 
   function handleNavClick({ key }: any) {
     history.push(key)
-  }
-
-  function hasChild(route: IMenuTree) {
-    return Array.isArray(route.children) && route.children.length > 0
   }
 
   function genSubMenu(route: IMenuTree) {
@@ -43,8 +39,8 @@ const Menus: React.FC<RouteComponentProps> = props => {
     return routes.reduce((prev: any, next: any) => {
       return prev.concat(
         hasChild(next)
-          ? genSubMenu(next)
-          : genMenuItem(next)
+          ? !next.hideMenu && genSubMenu(next)
+          : !next.hideMenu && genMenuItem(next)
       )
     }, [])
   }

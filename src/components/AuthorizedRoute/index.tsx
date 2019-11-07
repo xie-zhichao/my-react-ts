@@ -3,8 +3,7 @@ import { Route, Redirect, RouteProps, RouteComponentProps } from 'react-router-d
 import { UserContext } from '@/models/user'
 
 interface AuthorizedRouteProps extends RouteProps {
-  redirect: string,
-  component: React.FC<RouteComponentProps>
+  redirect?: string,
 };
 
 const AuthorizedRoute: React.FC<PickRequired<AuthorizedRouteProps, 'component'>> = props => {
@@ -15,7 +14,7 @@ const AuthorizedRoute: React.FC<PickRequired<AuthorizedRouteProps, 'component'>>
   const renderComponent = (props: RouteComponentProps) => {
     return logged
       ? <Component {...props} />
-      : <Redirect to={`${redirect}`} />
+      : <Redirect to={`${redirect || '/auth/login'}`} />
   }
 
   return (

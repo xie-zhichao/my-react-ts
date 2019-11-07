@@ -1,23 +1,68 @@
-import React from 'react'
-import { Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom'
-import menuTree, { IMenuTree } from '@/config/routes'
-import AuthorizedRoute from '../../components/AuthorizedRoute'
+import React, { lazy, Suspense } from 'react'
+import { Route, Redirect, Switch, RouteComponentProps } from 'react-router-dom'
+import { Spin } from 'antd'
+import menuTree, { IMenuTree, hasChild } from '@/config/routes'
+import Page404 from '@/pages/404'
 
 import './index.scss'
 
-const genRouteTree = (memus: IMenuTree[]) => {
-  const routes: Route[] = []
+const PageContent: React.FC<RouteComponentProps> = props => {
 
-  return routes
-}
+  function waitLazyComponent(component: any) {
+    const Component = lazy(component)
+    return (props: RouteComponentProps) => (
+      <Suspense
+        fallback={
+          <div style={{ textAlign: 'center', marginTop: '50px' }}>
+            <Spin tip="Loading..." />
+          </div>
+        }
+      >
+        <Component {...props} />
+      </Suspense>
+    )
+  }
 
-const PageContent: React.FC<RouteComponentProps> = ({ match }) => {
-  return <div className="basic-layout-content">
-    <Switch>
-      {genRouteTree(menuTree)}
-      <Redirect to={`${match.url}`} />
-    </Switch>
-  </div>
+  function redirectComponent(redirect: string) {
+    return (props: RouteComponentProps) => {
+      return <Redirect to={`${redirect || '/auth/login'}`} />
+    }
+  }
+
+  function genRoute(menu: IMenuTree): JsxElementOrNull {
+    const { path, exact, redirect, component, lazy } = menu
+
+    if (!component && !redirect) {
+      return null
+    }
+
+    const routeProps = {
+      path,
+      key: menu.path,
+      exact
+    }
+
+    return <Route {...routeProps} component={redirect ? redirectComponent(redirect) : 
+      lazy ? waitLazyComponent(component) : component} />
+  }
+
+  function genRoutes(menus: IMenuTree[]): JsxElementOrNull[] {
+    return menus.reduce<JsxElementOrNull[]>((prev: JsxElementOrNull[], next: IMenuTree) => {
+      return prev.concat(genRoute(next)).concat(hasChild(next) ? genRoutes(next.children!) : [])
+    }, [])
+  }
+
+  return (
+    <div
+      style={{
+        margin: '24px'
+      }}
+    >
+      <Switch>
+        {genRoutes(menuTree)}
+      </Switch>
+    </div>
+  )
 }
 
 export default PageContent
