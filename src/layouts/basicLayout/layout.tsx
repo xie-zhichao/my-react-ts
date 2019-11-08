@@ -9,15 +9,28 @@ import './index.scss'
 const { Header, Footer, Sider, Content } = Layout;
 
 const BasicLayout: React.FC<RouteComponentProps> = props => {
+  const { history } = props
+
+  const logo = () => {
+    return (
+      <div className="header-logo" onClick={() => history.push('/')}>
+        TS-Admin
+      </div>
+    )
+  }
+
   return <div className="basic-layout">
     <Layout>
-      <Sider><SideMenu /></Sider>
+      <Sider>
+        {logo()}
+        <SideMenu />
+      </Sider>
       <Layout>
         <Header>TS-Admin</Header>
         <Content>
           <PageContent {...props}/>
         </Content>
-        <Footer>copyright 2019. TS-Admin</Footer>
+        <Footer style={{textAlign: 'center'}}>copyright 2019. TS-Admin</Footer>
       </Layout>
     </Layout>
   </div>

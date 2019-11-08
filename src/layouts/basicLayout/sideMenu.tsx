@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Menu } from 'antd'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import menuTree, { IMenuTree, hasChild } from '@/config/routes'
+import menuTree, { hasChild } from '@/config/routes'
 
 const Menus: React.FC<RouteComponentProps> = props => {
   const { location, history } = props
