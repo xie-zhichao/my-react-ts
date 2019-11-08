@@ -1,16 +1,7 @@
 import React from "react"
-import { Route, Link, RouteComponentProps } from "react-router-dom"
+import { Switch, Link, RouteComponentProps } from "react-router-dom"
 
-const Topic: React.FC<RouteComponentProps> = ({ match }) => {
-  const { topicId } = match.params as IBaseParams
-  return (
-    <div>
-      <h3>{topicId}</h3>
-    </div>
-  )
-}
-
-const Topics: React.FC<RouteComponentProps> = ({ match }) => (
+const Topics: React.FC<RouteComponentProps> = ({ match, children }) => (
   <div>
     <h2>Topics</h2>
     <ul>
@@ -24,13 +15,9 @@ const Topics: React.FC<RouteComponentProps> = ({ match }) => (
         <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
       </li>
     </ul>
-
-    <Route path={`${match.url}/:topicId`} component={Topic} />
-    <Route
-      exact
-      path={match.url}
-      render={() => <h3>Please select a topic.</h3>}
-    />
+    <Switch>
+      {children}
+    </Switch>
   </div>
 )
 

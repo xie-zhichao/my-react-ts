@@ -38,4 +38,4 @@ declare interface IMenuTree {
 
 declare type PickRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
 
-declare type JsxElementOrNull = JSX.Element | null
+declare type React_Node = React.ReactNode

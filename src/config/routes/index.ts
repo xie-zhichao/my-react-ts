@@ -1,14 +1,13 @@
 import Home from '@/pages/home'
 import topicsMenu from './topics'
 import errorMenu from './error'
+import { isEmptyArray } from '@/common/utils/arrayUtils'
+
+export const hasChild = (menu: IMenuTree) => !isEmptyArray(menu.children)
 
 /**
  * 菜单配置
  */
-export const hasChild = (menu: IMenuTree) => {
-  return Array.isArray(menu.children) && menu.children.length > 0
-}
-
 const menuTree: IMenuTree[] = [
   {
     path: '/',
