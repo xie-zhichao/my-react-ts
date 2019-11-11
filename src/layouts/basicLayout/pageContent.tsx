@@ -1,25 +1,20 @@
 import React from 'react'
-import { Route, Switch, RouteComponentProps } from 'react-router-dom'
+import { Route, Switch, RouteComponentProps, Redirect } from 'react-router-dom'
 import menuTree, { hasChild } from '@/config/routes'
 import { redirectRender, lazyRender } from '@/common/render/renderUtils'
+import NoMatch from '@/components/NoMatch'
 
 import './index.scss'
 
 const PageContent: React.FC<RouteComponentProps> = props => {
 
-  const EmptyRoute: React.FC<RouteComponentProps> = ({ match }) => {
-    return <Route
-      exact
-      path={match.url}
-      render={() => <h3>内容没找到.</h3>}
-    />
-  }
-
   function genSubRoutes(menus: IMenuTree[], prePath: string): React.FC<RouteComponentProps> {
     return (props: RouteComponentProps) => {
       return <Switch>
         {genRoutes(menus, prePath)}
-        <EmptyRoute {...props} />
+        <Route path="*">
+          <NoMatch />
+        </Route>
       </Switch>
     }
   }
@@ -54,7 +49,7 @@ const PageContent: React.FC<RouteComponentProps> = props => {
     return menus.reduce<React_Node[]>(
       (prev: React_Node[], next: IMenuTree) => {
         return prev.concat(genRoute(next, prePath))
-          .concat(hasChild(next) && !next.hideChildrenInMenu ? genRoutes(next.children!, `${prePath}${next.path}`).concat(EmptyRoute) : [])
+          .concat(hasChild(next) && !next.hideChildrenInMenu ? genRoutes(next.children!, `${prePath}${next.path}`) : [])
       },
       [])
   }
@@ -67,6 +62,9 @@ const PageContent: React.FC<RouteComponentProps> = props => {
     >
       <Switch>
         {genRoutes(menuTree)}
+        <Route path="*">
+          <NoMatch />
+        </Route>
       </Switch>
     </div>
   )
