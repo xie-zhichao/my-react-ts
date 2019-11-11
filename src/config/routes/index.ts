@@ -13,7 +13,7 @@ const menuTree: IMenuTree[] = [
     path: '/',
     redirect: '/home',
     exact: true,
-    hideMenu: true
+    hideInMenu: true
   },
   {
     name: '首页',

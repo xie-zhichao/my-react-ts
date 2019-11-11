@@ -5,6 +5,7 @@ const topicsMenu: IMenuTree[] = [
     icon: 'message',
     component: () => import('@/pages/topics'),
     lazy: true,
+    hideChildrenInMenu: true,
     children: [
       {
         name: '渲染',
@@ -12,7 +13,7 @@ const topicsMenu: IMenuTree[] = [
         exact: true,
         component: () => import('@/pages/topic'),
         lazy: true,
-        hideMenu: true
+        hideInMenu: true
       },
       {
         name: '组件',
@@ -20,7 +21,7 @@ const topicsMenu: IMenuTree[] = [
         exact: true,
         component: () => import('@/pages/topic'),
         lazy: true,
-        hideMenu: true
+        hideInMenu: true
       }
     ]
   },

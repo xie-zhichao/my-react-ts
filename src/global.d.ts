@@ -30,7 +30,8 @@ declare interface IMenuTree {
   component?: any;
   lazy?: boolean;
   permission?: string | string[];
-  hideMenu?: boolean;
+  hideInMenu?: boolean;
+  hideChildrenInMenu?: boolean;
   exact?: boolean;
   children?: IMenuTree[],
   redirect?: string

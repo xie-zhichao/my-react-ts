@@ -15,9 +15,7 @@ const Topics: React.FC<RouteComponentProps> = ({ match, children }) => (
         <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
       </li>
     </ul>
-    <Switch>
-      {children}
-    </Switch>
+    {children}
   </div>
 )
 

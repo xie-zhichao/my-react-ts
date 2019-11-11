@@ -7,36 +7,54 @@ import './index.scss'
 
 const PageContent: React.FC<RouteComponentProps> = props => {
 
-  const EmptyRoute: React.FC<RouteComponentProps> = ({match}) => {
+  const EmptyRoute: React.FC<RouteComponentProps> = ({ match }) => {
     return <Route
       exact
       path={match.url}
-      render={() => <h3>Please select a topic.</h3>}
+      render={() => <h3>内容没找到.</h3>}
     />
   }
 
-  function genRoute(menu: IMenuTree): React_Node {
-    const { path, redirect, component, lazy, children, ...rest } = menu
+  function genSubRoutes(menus: IMenuTree[], prePath: string): React.FC<RouteComponentProps> {
+    return (props: RouteComponentProps) => {
+      return <Switch>
+        {genRoutes(menus, prePath)}
+        <EmptyRoute {...props} />
+      </Switch>
+    }
+  }
+
+  function genRoute(menu: IMenuTree, prePath: string): React_Node {
+    const { path, redirect, component, lazy, children, hideChildrenInMenu, ...rest } = menu
 
     if (!path || (!component && !redirect)) {
       return null
     }
 
+    const fullPath = `${prePath}${path}`
+    const renderRoute = (props: RouteComponentProps) => {
+      const Comp = redirect ? redirectRender(redirect)
+        : (lazy ? lazyRender(component) : component)
+      const SubRoutes = children && hideChildrenInMenu ? genSubRoutes(children, fullPath) : undefined
+
+      return <Comp {...props}>
+        {SubRoutes ? <SubRoutes {...props} /> : undefined}
+      </Comp>
+    }
+
     return <Route
-      path={path}
-      key={path}
+      path={fullPath}
+      key={fullPath}
       {...rest}
-      component={redirect ? redirectRender(redirect) :
-        lazy ? lazyRender(component) : component}
-      children={children && !rest.exact ? genRoutes(children) : undefined}
+      render={renderRoute}
     />
   }
 
-  function genRoutes(menus: IMenuTree[]): React_Node[] {
+  function genRoutes(menus: IMenuTree[], prePath = ''): React_Node[] {
     return menus.reduce<React_Node[]>(
       (prev: React_Node[], next: IMenuTree) => {
-        return prev.concat(genRoute(next))
-          .concat(hasChild(next) && next.exact ? genRoutes(next.children!).concat(EmptyRoute) : [])
+        return prev.concat(genRoute(next, prePath))
+          .concat(hasChild(next) && !next.hideChildrenInMenu ? genRoutes(next.children!, `${prePath}${next.path}`).concat(EmptyRoute) : [])
       },
       [])
   }

@@ -5,7 +5,7 @@ const Topic: React.FC<RouteComponentProps> = ({ match }) => {
   const { topicId } = match.params as IBaseParams
   return (
     <div>
-      <h3>{topicId}</h3>
+      <h3>{match.url}</h3>
     </div>
   )
 }
