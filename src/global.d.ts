@@ -42,6 +42,8 @@ declare type PickRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
 
 declare type React_Node = React.ReactNode
 
+declare type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>
+
 /**
  * model state
  */
@@ -53,8 +55,9 @@ declare interface IModelState {
  * model provider persister
  */
 declare interface IModelProviderPersist {
-  queryModel(key: string): any
-  persistModel(key: string, value: any)
+  persistName: string
+  recoverModel(initial: IModelState): any
+  persistModel(payload: any)
 }
 
 /**

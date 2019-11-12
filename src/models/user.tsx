@@ -19,7 +19,6 @@ export interface IUserContext {
   dispatch: React.Dispatch<IReducerAction<IUserState>>
 }
 
-const PersistName = 'UserModel'
 const EventName = 'UserStateChange'
 
 // 创建 context
@@ -31,11 +30,13 @@ export const LOG_OUT = 'LOG_OUT'
 const reducer = (state: any, action: IReducerAction<IUserState>) => {
   switch (action.type) {
     case LOG_IN:
-      trigger(EventName, action.payload)
-      return action.payload
     case LOG_OUT:
-        trigger(EventName, initialState)
-      return initialState
+      const newState = {
+        ...state,
+        ...action.payload
+      }
+      trigger(EventName, newState)
+      return newState
     default:
       throw new Error(`there is no action "${action.type}" in user model.`)
   }
@@ -46,14 +47,8 @@ const reducer = (state: any, action: IReducerAction<IUserState>) => {
  * UserProvider 组件包裹的所有组件都可以访问到 user
  */
 export const UserProvider: React.FC<IModelProviderProps> = ({ children, persister }) => {
-  persister && subscribe(EventName, payload => { persister.persistModel(PersistName, payload) })
-  const [user, dispatch] = persister ? useReducer(reducer, initialState, userState => {
-      const persistState = persister.queryModel(PersistName)
-      return {
-        ...userState,
-        ...persistState
-      }
-    })
+  persister && subscribe(EventName, persister.persistModel)
+  const [user, dispatch] = persister ? useReducer(reducer, initialState, persister.recoverModel)
     : useReducer(reducer, initialState)
 
   return (
