@@ -1,4 +1,5 @@
 /**
+ * 全局声明
  * global declares
  */
 
@@ -40,3 +41,26 @@ declare interface IMenuTree {
 declare type PickRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
 
 declare type React_Node = React.ReactNode
+
+/**
+ * model state
+ */
+declare interface IModelState {
+  [key: string]: any
+}
+
+/**
+ * model provider persister
+ */
+declare interface IModelProviderPersist {
+  queryModel(key: string): any
+  persistModel(key: string, value: any)
+}
+
+/**
+ * model provider props
+ */
+declare interface IModelProviderProps {
+  persister?: IModelProviderPersist,
+  children?: React.ReactNode
+}
