@@ -17,7 +17,7 @@ const BasicLayout: React.FC<RouteComponentProps> = props => {
     return (
       <div className={["header-logo", collapsed ? 'collapsed' : ''].join(' ')} onClick={() => history.push('/')}>
         <Icon className="icon" type="deployment-unit" />
-        <span className="title">TS-Admin</span>
+        <span className="title">RTS-Admin</span>
       </div>
     )
   }

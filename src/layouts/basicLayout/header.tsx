@@ -9,22 +9,22 @@ interface IHeaderProps extends IBaseProps {
 
 const Header: React.FC<IHeaderProps> = ({ collapsed, setCollaped }) => {
   const { user } = useContext(UserContext)
+  const { dispatch } = useContext(UserContext)
 
   const logout = () => {
-    // const { dispatch } = useContext(UserContext)
-
-    // dispatch({
-    //   type: LOG_OUT,
-    //   payload: initialState
-    // })
+    dispatch({
+      type: LOG_OUT,
+      payload: initialState
+    })
   }
 
   const userMenuRender = () => {
     return <Menu>
       <Menu.Item>
-        <a rel="noopener noreferrer" href="javascript:void;" onClick={logout}>
-          注销
-        </a>
+        <div className="menu-action" onClick={logout}>
+          <Icon type="logout" />
+          <span>注销</span>
+        </div>
       </Menu.Item>
     </Menu>
   }
