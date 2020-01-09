@@ -44,7 +44,7 @@ export default class Validator {
   readonly rule: RegExp | ValidateMethod;
   readonly options: IValidatorOptions;
 
-  constructor(name: string = "anonymous validator", rule: RegExp | ValidateMethod, options?: IValidatorOptions) {
+  constructor(name = "anonymous validator", rule: RegExp | ValidateMethod, options?: IValidatorOptions) {
     this.name = name;
     this.rule = rule;
     this.options = {

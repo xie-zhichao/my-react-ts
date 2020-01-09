@@ -2,9 +2,9 @@ import React, { createContext, useReducer } from "react"
 import { subscribe, trigger } from '@/common/eventBus'
 
 export interface IUserState extends IModelState {
-  userId?: string,
-  userName?: string,
-  logged: boolean
+  userId?: string;
+  userName?: string;
+  logged: boolean;
 }
 
 // 初始化状态
@@ -15,8 +15,8 @@ export const initialState: IUserState = {
 }
 
 export interface IUserContext {
-  user: IUserState,
-  dispatch: React.Dispatch<IReducerAction<IUserState>>
+  user: IUserState;
+  dispatch: React.Dispatch<IReducerAction<IUserState>>;
 }
 
 const EventName = 'UserStateChange'

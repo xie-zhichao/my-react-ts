@@ -3,8 +3,8 @@ import { Menu, Dropdown, Icon } from 'antd'
 import { UserContext, LOG_OUT, initialState } from '@/models/user'
 
 interface IHeaderProps extends IBaseProps {
-  collapsed: boolean
-  setCollaped: StateSetter<boolean>
+  collapsed: boolean;
+  setCollaped: StateSetter<boolean>;
 }
 
 const Header: React.FC<IHeaderProps> = ({ collapsed, setCollaped }) => {

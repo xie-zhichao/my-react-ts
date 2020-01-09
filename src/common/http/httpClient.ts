@@ -4,33 +4,11 @@
  */
 import axios from 'axios';
 
+function HttpClientFactory() {
 
-class Animal {
-  
+  return {}
 }
 
-class Bee extends Animal {
- 
-}
-
-class Lion extends Animal {
-  
-}
-
-class AnimalFactory {
-  private static instance: AnimalFactory;
-
-  private constructor() {};
-
-  static getInstance(): AnimalFactory {
-    if(!AnimalFactory.instance) {
-      AnimalFactory.instance = new AnimalFactory();
-    }
-
-    return AnimalFactory.instance;
-  }
-
-  create<A extends Animal>(c: new () => A): A {
-    return new c();
-  }
+export {
+  HttpClientFactory
 }

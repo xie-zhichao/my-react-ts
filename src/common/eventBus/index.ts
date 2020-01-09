@@ -3,7 +3,7 @@
  */
 
 interface EventListener {
-  (payload: any): void
+  (payload: any): void;
 }
 
 const events: {[name: string]: EventListener[]} = {}

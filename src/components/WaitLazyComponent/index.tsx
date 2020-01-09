@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { Spin } from 'antd'
 
 export interface IWaitLazyComponentProps extends IBaseProps {
-  component: any
+  component: any;
 }
 
 const WaitLazyComponent: React.FC<IWaitLazyComponentProps> = (props: IWaitLazyComponentProps) => {

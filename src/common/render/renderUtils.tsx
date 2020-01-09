@@ -3,13 +3,17 @@ import { RouteComponentProps, Redirect } from "react-router"
 import WaitLazyComponent from "@/components/WaitLazyComponent"
 
 export function redirectRender(redirect: string) {
-  return (props: RouteComponentProps) => {
+  const Redirector =  () => {
     return <Redirect to={`${redirect || '/auth/login'}`} />
   }
+
+  return Redirector
 }
 
 export function lazyRender(component: any) {
-  return (props: RouteComponentProps) => {
+  const LazyWrapper = (props: RouteComponentProps) => {
     return <WaitLazyComponent {...props} component={component} />
-  } 
+  }
+
+  return LazyWrapper
 }

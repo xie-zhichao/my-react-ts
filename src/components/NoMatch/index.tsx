@@ -1,5 +1,7 @@
 import React from 'react'
 
-export default (props: IBaseProps) => (
+const NoMatch = () => (
   <h3>没找到内容！</h3>
 )
+
+export default NoMatch;

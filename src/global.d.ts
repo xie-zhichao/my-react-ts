@@ -4,19 +4,19 @@
  */
 
 declare interface IBaseProps {
-  [propName: string]: any
+  [propName: string]: any;
 }
 
 declare interface IBaseParams {
-  [key: string]: any
+  [key: string]: any;
 }
 
 /**
  * 状态操作参数
  */
 declare interface IReducerAction<T> {
-  type: string,
-  payload: T
+  type: string;
+  payload: T;
 }
 
 /**
@@ -34,8 +34,8 @@ declare interface IMenuTree {
   hideInMenu?: boolean;
   hideChildrenInMenu?: boolean;
   exact?: boolean;
-  children?: IMenuTree[],
-  redirect?: string
+  children?: IMenuTree[];
+  redirect?: string;
 }
 
 declare type PickRequired<T, K extends keyof T> = T & Required<Pick<T, K>>
@@ -48,22 +48,22 @@ declare type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>
  * model state
  */
 declare interface IModelState {
-  [key: string]: any
+  [key: string]: any;
 }
 
 /**
  * model provider persister
  */
 declare interface IModelProviderPersist {
-  persistName: string
-  recoverModel(initial: IModelState): any
-  persistModel(payload: any)
+  persistName: string;
+  recoverModel(initial: IModelState): any;
+  persistModel(payload: any);
 }
 
 /**
  * model provider props
  */
 declare interface IModelProviderProps {
-  persister?: IModelProviderPersist,
-  children?: React.ReactNode
+  persister?: IModelProviderPersist;
+  children?: React.ReactNode;
 }

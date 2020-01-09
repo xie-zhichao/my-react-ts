@@ -6,7 +6,7 @@ import Layout from './layout'
 import Login from '@/pages/login'
 import SessionStorePersister from '@/common/store/sessionStorePersister'
 
-const App: React.FC = props => ( 
+const App: React.FC = () => ( 
   <UserProvider persister={SessionStorePersister('UserModel')}>
     <Router>
         <Switch>

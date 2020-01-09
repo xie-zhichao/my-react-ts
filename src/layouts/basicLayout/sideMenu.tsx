@@ -22,7 +22,7 @@ const SideMenu: React.FC<RouteComponentProps> = props => {
         }
         key={fullPath}
       >
-        {genMenus(menu.children!, fullPath)}
+        {genMenus(menu.children || [], fullPath)}
       </Menu.SubMenu>
     )
   }
