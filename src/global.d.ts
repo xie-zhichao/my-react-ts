@@ -3,6 +3,10 @@
  * global declares
  */
 
+declare interface IPlainObject {
+  [key: string]: any;
+}
+
 declare interface IBaseProps {
   [propName: string]: any;
 }

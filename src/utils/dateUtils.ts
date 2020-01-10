@@ -4,7 +4,7 @@
  * @description 日期时间工具库
  */
 
-const getKeys = <T, K extends keyof T>(data: T): K[]  => Object.keys(data) as K[];
+const getKeys = <T extends IPlainObject, K extends keyof T>(data: T): K[]  => Object.keys(data) as K[];
 
 /**
  * 日期时间格式化

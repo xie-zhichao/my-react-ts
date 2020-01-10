@@ -3,7 +3,7 @@ import { Route, Redirect, RouteProps, RouteComponentProps } from 'react-router-d
 import { UserContext } from '@/models/user'
 
 interface IAuthorizedRouteProps extends RouteProps {
-  redirect?: string,
+  redirect?: string;
 };
 
 const AuthorizedRoute: React.FC<PickRequired<IAuthorizedRouteProps, 'component'>> = props => {
